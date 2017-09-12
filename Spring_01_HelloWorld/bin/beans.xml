@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+		用于声明Bean对象
+			id : 标识，具有唯一性
+			class : Bean对象的类型	
+		scope="singleton" 	单例的。默认值
+		scope="prototype"   多例的。
+	 -->
+	<bean id="student" class="com.pers.spring.bean.Student" scope="prototype">
+		<property name="studentId" value="1"/>
+		<property name="studetName" value="zhangsan"/>		
+	</bean>
+	
+</beans>

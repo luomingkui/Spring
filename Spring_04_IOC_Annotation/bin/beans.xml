@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 设置扫描的包 -->
+	<context:component-scan base-package="com.atguigu.spring.*"/> 
+	
+	<!-- 
+		实验33：使用context:include-filter指定扫描包时要包含的类		
+	 -->
+	<!-- <context:component-scan base-package="com.atguigu.spring.*" use-default-filters="false">
+		type="annotation" : 表示哪种类型注解应用的Bean需要被扫描
+		type="assignable" : 采用Bean的类型进行过滤
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan> -->
+	
+
+	<!-- 		
+		实验34：使用context:exclude-filter指定扫描包时不包含的类	
+	 <context:component-scan base-package="com.atguigu.spring.*">
+	 	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	 	<context:exclude-filter type="assignable" expression="com.atguigu.spring.component.UserService"/>
+	 </context:component-scan>
+	  -->
+
+</beans>

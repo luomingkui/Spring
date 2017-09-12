@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- 
+		实验10：使用List类型的集合属性
+		实验11：使用Map类型的集合属性
+		实验12：使用prop子元素为Properties类型的属性赋值
+	 -->
+	<bean id="bookShop" class="com.atguigu.spring.bean.BookShop">
+		
+		<property name="bookList">
+			<list>
+				<!-- <value></value> -->
+				<ref bean="book"/>
+				<ref bean="book2"/>
+				<ref bean="book3"/>
+			</list>
+		</property>
+		
+		<property name="bookMap">
+			<map>
+				<entry key="101" value-ref="book"></entry>
+				<entry key="102" value-ref="book2"></entry>
+				<entry key="103" value-ref="book3"></entry>
+			</map>
+		</property>
+		
+		<property name="properties">
+			<props>
+				<prop key="username">root</prop>
+				<prop key="password">root</prop>
+				<prop key="url">jdbc:mysql://localhost:3306/test</prop>
+				<prop key="driverClass">com.mysql.jdbc.Driver</prop>
+			</props>
+		</property>
+		
+	</bean>
+	
+	<!-- 实验13：通过util名称空间创建集合类型的bean -->
+	<util:list id="bookList">
+		<ref bean="book"/>
+		<ref bean="book2"/>
+		<ref bean="book3"/>
+	</util:list>
+	
+	<!-- 实验14：给bean的级联属性赋值 -->
+	<bean id="userAction3" class="com.atguigu.spring.component.UserAction">
+		<property name="userService" ref="userService"></property>
+		<property name="userService.message" value="atguigu is very good!"></property>
+	</bean>
+
+	<!-- 
+		实验15：配置通过静态工厂方法创建的bean		
+	 -->
+	 <bean id="getBookFromStaticFactory" class="com.atguigu.spring.factory.MyStaticFactory" factory-method="getBookFromStaticFactory">
+	 	<constructor-arg value="102"/>
+	 </bean>
+	 
+	 <!-- 
+	 	实验16：配置通过实例工厂方法创建的bean		
+	  -->
+	  <bean id="myInstanceFactory" class="com.atguigu.spring.factory.MyInstanceFactory"></bean>
+	  <bean id="getBookFromInstanceFactory" factory-bean="myInstanceFactory" factory-method="getBookFromInstanceFactory">
+	  		<constructor-arg value="103"/>
+	  </bean>
+	  
+	  <!-- 实验17：配置FactoryBean★ -->
+	  <bean id="book8" class="com.atguigu.spring.factory.MyFactoryBean">
+	  	<property name="fileName" value="classpath:hibernate.cfg.xml"></property>
+	  </bean>
+	  
+	  
+	<!-- 
+		实验18：通过继承实现bean配置信息的重用
+		实验19：通过abstract属性创建一个模板bean
+	 -->
+	 <bean id="book9" class="com.atguigu.spring.bean.Book">	 	
+	 	<property name="price" value="101.0"></property>
+	 </bean>
+	 
+	 <bean id="book10" class="com.atguigu.spring.bean.Book" parent="book9">
+	 	<property name="bookId" value="201"></property>	 	
+	 </bean>
+	 
+	 <bean id="book11" abstract="true">	 	
+	 	<property name="price" value="101.0"></property>
+	 </bean>
+	 
+	 <bean id="book12" class="com.atguigu.spring.bean.Book" parent="book11">
+	 	<property name="bookId" value="201"></property>	 	
+	 </bean>
+	
+</beans>

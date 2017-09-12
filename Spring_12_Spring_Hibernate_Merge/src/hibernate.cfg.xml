@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    	
+    	<!-- 数据库连接信息，c3p0委托给Spring进行管理 -->
+    	
+    	<property name="hibernate.show_sql">true</property>
+    	<property name="hibernate.format_sql">true</property>
+    	<property name="hibernate.hbm2ddl.auto">update</property>
+    
+    	<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+    
+    	<!-- 映射配置管理，委托给Spring配置文件管理 
+	    <mapping resource="com/atguigu/sh/pojo/Book.hbm.xml"/>
+		<mapping resource="com/atguigu/sh/pojo/Account.hbm.xml"/>
+	    -->
+    </session-factory>
+</hibernate-configuration>

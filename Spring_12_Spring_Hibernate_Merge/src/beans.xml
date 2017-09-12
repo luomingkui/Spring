@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- 设置扫描的包 -->
+	<context:component-scan base-package="com.atguigu.sh.*"/>
+
+	<!-- 引用外部资源文件：加载属性文件到Spring运行环境中 -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${jdbc.user}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+		<property name="driverClass" value="${jdbc.driverClass}"/>
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
+		<property name="minPoolSize" value="${jdbc.minPoolSize}"/>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
+		<property name="maxStatements" value="${jdbc.maxStatements}"/>
+		<property name="maxStatementsPerConnection" value="${jdbc.maxStatementsPerConnection}"/>
+	</bean>
+	
+	<!-- Hibernate框架的SessionFactory对象创建委托给Spring管理，Spring提供了FactoryBean接口的实现类来管理SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:com/atguigu/sh/pojo</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 事务切面类：管理声明式事务 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 启用基于注解的声明式事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

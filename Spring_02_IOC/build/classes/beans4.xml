@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+		autowire ： 自动装配
+			byName : 表示根据属性名称(不是成员变量名称)来查找关联的Bean对象，然后，注入到当前Bean对象中，进行属性赋值
+			byType : 表示根据属性类型来查找关联的Bean对象，如果存在，就注入到当前Bean对象中，进行属性赋值
+				如果查找到多个相同类型的对象，属性为单数类型，注入失败；可以采用复数类型（数组或集合(泛型)）接收多个对象；
+	 -->
+	<bean id="userService2" class="com.atguigu.spring.component.UserServiceImpl" autowire="byType">
+		<!-- <property name="userDao" ref="userDao2"></property> -->
+	</bean>
+	
+ <!-- 	<bean id="userDao2" class="com.atguigu.spring.component.UserDaoImpl"></bean>
+	
+	    <bean id="userDao3" class="com.atguigu.spring.component.UserDaoImpl"></bean>
+ -->
+</beans>

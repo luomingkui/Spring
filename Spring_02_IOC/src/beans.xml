@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 实验21：测试bean的作用域，分别创建单实例和多实例的bean★ -->
+	<bean id="userAction" class="com.atguigu.spring.component.UserAction" scope="prototype">
+		<!-- 实验8：引用其他bean★ -->
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- <bean id="userService" class="com.atguigu.spring.component.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean> -->
+	
+	<bean id="userService" class="com.atguigu.spring.component.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+		<!-- <property name="message" value=""></property> -->
+	</bean>
+	<bean id="userDao" class="com.atguigu.spring.component.UserDaoImpl"></bean>
+
+	<!-- 实验1：通过IOC容器创建对象，并为属性赋值★ -->
+	<bean id="book" class="com.atguigu.spring.bean.Book">
+		<property name="bookId" value="101"/>
+		<property name="title" value="三国演义"/>
+		<property name="author" value="罗贯中"/>
+	</bean>
+	
+	<bean id="book2" class="com.atguigu.spring.bean.Book">
+		<property name="bookId" value="102"/>
+		<property name="title" value="西游记"/>
+		<property name="author" value="吴承恩"/>
+	</bean>
+	
+	<!-- 
+	实验3：通过构造器为bean的属性赋值
+	实验4：通过index属性指定参数的位置
+	实验5：通过类型不同区分重载的构造器
+	 -->
+	<bean id="book3" class="com.atguigu.spring.bean.Book">
+		<constructor-arg value="103"/>
+		<constructor-arg value="红楼梦"/>
+		<constructor-arg value="曹雪芹"/>
+	</bean>
+	
+	<bean id="book4" class="com.atguigu.spring.bean.Book">
+		<constructor-arg value="红楼梦" index="1"/>
+		<constructor-arg value="12.3" type="double" index="0"/>
+	</bean>
+	
+	<!-- 实验6：通过p名称空间为bean赋值 -->
+	<bean id="book5" class="com.atguigu.spring.bean.Book" 
+		p:bookId="104" p:title="水浒传" p:author="施耐庵" p:price="120.0"/>
+		
+	<!-- 实验7：测试使用null值  -->	
+	<bean id="book6" class="com.atguigu.spring.bean.Book">
+		<!-- <property name="title" value=""></property> -->
+		<property name="title"> <null/> </property>
+	</bean>
+	
+	<!-- 实验9：引用内部bean -->
+	<bean id="userAction2" class="com.atguigu.spring.component.UserAction">
+		<!-- 引用一个外部Bean -->
+		<!-- <property name="userService" ref="userService"/> -->
+		<property name="userService">
+			<bean class="com.atguigu.spring.component.UserServiceImpl">
+				<property name="userDao" ref="userDao"></property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- <import resource="beans2.xml"/> -->
+	
+</beans>
